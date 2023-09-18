@@ -1,0 +1,57 @@
+version: "3.3"
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    volumes:
+      - ./backend:/app/backend/
+    ports:
+      - "8888:8888"
+    tty: 
+      true
+    entrypoint:
+      ["poetry", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8888", "--reload"]
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
+    volumes:
+      - ./frontend:/app/frontend/
+    ports:
+      - 3000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    entrypoint:
+      sh -c "npm start" 
+
+
+  database:
+    container_name: database
+    build:
+      context: .
+      dockerfile: ./docker/database/Dockerfile
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+
+
+  jupyter_lab:
+    container_name: jupyter_lab
+    build:
+      context: .
+      dockerfile: ./docker/jupyterLab/Dockerfile
+    volumes:
+      - ./jupyterLab:/app/jupyterLab/
+    ports:
+      - "7777:7777"
+    tty: 
+      true
+    entrypoint:
+      ["poetry", "run", "jupyter-lab", "--ip='0.0.0.0'", "--port=7777", "--allow-root", "--no-browser", "--notebook-dir=/app/jupyterLab/", "--NotebookApp.token=''"]
+    

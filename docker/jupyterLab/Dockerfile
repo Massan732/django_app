@@ -1,8 +1,8 @@
 FROM python:3.9
 
-WORKDIR /app/backend/
+WORKDIR /app/jupyterLab/
 
-COPY ./backend/pyproject.toml ./backend/poetry.lock /app/backend/
+COPY ./jupyterLab/pyproject.toml ./jupyterLab/poetry.lock /app/jupyterLab/
 
 RUN POETRY_HOME=/opt/poetry
 
@@ -10,4 +10,4 @@ RUN curl -sSL https://install.python-poetry.org | python -
 
 ENV PATH /root/.local/bin:$PATH
 
-RUN poetry install --no-root 
+RUN poetry install --no-root --no-dev
