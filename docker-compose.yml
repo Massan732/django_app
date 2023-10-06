@@ -45,8 +45,8 @@ services:
     ports:
       - 5430:5430
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: ym_postgreas
+      POSTGRES_PASSWORD: ym_postgres
 
 
   jupyter_lab:
