@@ -4,3 +4,7 @@ FROM node:lts
 WORKDIR /app/frontend/
 
 COPY ./frontend/package.json /app/frontend/
+
+# 依存関係のインストール
+RUN npm install
+

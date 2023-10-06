@@ -28,6 +28,14 @@ services:
     entrypoint:
       sh -c "npm start" 
 
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf # Nginxの設定ファイル
 
   database:
     container_name: database
@@ -35,7 +43,7 @@ services:
       context: .
       dockerfile: ./docker/database/Dockerfile
     ports:
-      - 5432:5432
+      - 5430:5430
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
