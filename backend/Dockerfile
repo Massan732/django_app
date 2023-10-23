@@ -1,13 +1,17 @@
-FROM python:3.9
+# ベースイメージの指定
+FROM python:3.10
 
-WORKDIR /app/backend/
+# 環境変数を設定
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-COPY ./backend/pyproject.toml ./backend/poetry.lock /app/backend/
+# 作業ディレクトリの設定
+WORKDIR /app/backend
 
-RUN POETRY_HOME=/opt/poetry
+# poetryの準備
+RUN pip install poetry
+RUN poetry config virtualenvs.in-project false
 
-RUN curl -sSL https://install.python-poetry.org | python -
-
-ENV PATH /root/.local/bin:$PATH
-
-RUN poetry install --no-root 
+# poetryによるパッケージインストール
+COPY ./backend/pyproject.toml /app/backend/
+RUN if [ -f pyproject.toml ]; then poetry install --no-root; fi
