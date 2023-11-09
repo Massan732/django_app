@@ -1,3 +1,3 @@
 *.env
-osrm/data
+osrm/data/*
 ./frontend/node_modules/

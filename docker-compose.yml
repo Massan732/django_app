@@ -33,11 +33,11 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: ./docker/nginx/Dockerfile
+      dockerfile: ./nginx/Dockerfile
     ports:
       - "80:80"
     volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf # Nginxの設定ファイル
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf # Nginxの設定ファイル
 
   postgresql:
     container_name: myapp_postgresql
