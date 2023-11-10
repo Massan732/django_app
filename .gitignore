@@ -1,3 +1,4 @@
+!.gitkeep
 *.env
 osrm/data/*
 ./frontend/node_modules/
